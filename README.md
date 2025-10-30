@@ -2,6 +2,8 @@
 
 A clean, interactive SVG map that highlights regions on hover.
 
+![Interactive Map Demo](img/screenshot.png)
+
 ## Features
 
 - Hover over grey regions (`#c7c8ca`) to see them turn red
