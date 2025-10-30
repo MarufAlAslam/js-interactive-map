@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Map — Hover to highlight</title>
+  <style>
+    /* Simple page layout */
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.4;margin:0;background:#f7f7f7;color:#111}
+    .wrap{max-width:1100px;margin:28px auto;padding:18px;background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(16,24,40,0.06)}
+    h1{font-size:18px;margin:0 0 12px}
+    p{margin:0 0 12px;color:#444}
+
+    /* SVG container */
+    #map-container{width:100%;overflow:visible}
+    svg{width:100%;height:auto;display:block}
+
+    /* Interactive region styles */
+  .interactive-region{transition:fill .2s ease, stroke .2s ease, stroke-width .2s ease;cursor:pointer;pointer-events:auto;stroke-width:0.5px}
+  .interactive-region.popout{stroke-width:1.5px}
+  /* Hover color (important so inline fills/strokes are overridden) */
+  .interactive-region:hover{fill:#ff3b30 !important; stroke:#ff3b30 !important}
+
+    /* Small responsive hint */
+    .note{font-size:13px;color:#666}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Interactive map — hover dark-grey areas</h1>
+    <p class="note">This page will fetch and inline <code>maps.svg</code> (must be in the same folder). Dark grey shapes are detected automatically and become red on hover with a subtle "pop out" effect. If inlining fails the SVG will be shown as an <code>&lt;img&gt;</code> fallback.</p>
+
+    <div id="map-container" aria-hidden="false">
+      <!-- SVG will be inlined here by JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    // Helper: parse hex or rgb(...) strings into [r,g,b]
+    function parseColorString(str){
+      if(!str) return null;
+      str = (''+str).trim().toLowerCase();
+      if(str === 'none' || str === 'transparent') return null;
+      // hex
+      if(str[0]==='#'){
+        let hex = str.slice(1);
+        if(hex.length===3) hex = hex.split('').map(c=>c+c).join('');
+        if(hex.length!==6) return null;
+        const int = parseInt(hex,16);
+        return [(int>>16)&255, (int>>8)&255, int&255];
+      }
+      // rgb or rgba
+      const m = str.match(/rgba?\(([^)]+)\)/);
+      if(m){
+        const parts = m[1].split(',').map(s=>parseFloat(s.trim()));
+        return parts.slice(0,3);
+      }
+      // named colors: create a temporary element to resolve
+      try{
+        const d = document.createElement('div');
+        d.style.color = str;
+        document.body.appendChild(d);
+        const cs = window.getComputedStyle(d).color;
+        document.body.removeChild(d);
+        const mm = cs.match(/rgb\(([^)]+)\)/);
+        if(mm) return mm[1].split(',').map(s=>parseFloat(s.trim()));
+      }catch(e){/* ignore */}
+      return null;
+    }
+
+    function luminance([r,g,b]){
+      return (0.2126*r + 0.7152*g + 0.0722*b)/255;
+    }
+
+    // Check if color matches the specific target grey (#c7c8ca)
+    function isTargetGrey(rgb){
+      if(!rgb || rgb.length<3) return false;
+      const [r,g,b] = rgb.map(v=>Number(v));
+      // Target: #c7c8ca = rgb(199, 200, 202)
+      // Allow small tolerance for rounding
+      return (Math.abs(r - 199) <= 3 && Math.abs(g - 200) <= 3 && Math.abs(b - 202) <= 3);
+    }
+
+    // Get effective fill/stroke color for an element (handles computed style and inheritance)
+    function getEffectiveColors(el){
+      const cs = window.getComputedStyle(el);
+      const fill = cs && cs.fill ? cs.getPropertyValue('fill') : null;
+      const stroke = cs && cs.stroke ? cs.getPropertyValue('stroke') : null;
+      return {fill, stroke};
+    }
+
+    // Inline the SVG and wire hover handlers to dark-grey shapes (or stroked shapes)
+    (function init(){
+      const container = document.getElementById('map-container');
+      fetch('maps.svg').then(r=>{
+        if(!r.ok) throw new Error('SVG fetch failed: '+r.status);
+        return r.text();
+      }).then(svgText=>{
+        container.innerHTML = svgText;
+        const svg = container.querySelector('svg');
+        if(!svg) throw new Error('No <svg> found in the file');
+
+        // Only inspect actual shapes (NOT groups) to avoid multiple triggers
+        const elements = svg.querySelectorAll('path,rect,circle,ellipse,polygon,polyline');
+        elements.forEach(el=>{
+          // Skip if element is inside a <defs> or other non-visible container
+          if(el.closest('defs')) return;
+          
+          // Get the computed fill color
+          const cs = getEffectiveColors(el);
+          const explicitFill = el.getAttribute('fill');
+          const candidateFill = parseColorString(explicitFill || cs.fill);
+          
+          // ONLY make interactive if it has the specific target grey (#c7c8ca)
+          const fillMatch = isTargetGrey(candidateFill);
+          
+          if(fillMatch){
+            // mark as interactive
+            el.classList.add('interactive-region');
+            // CRITICAL: ensure full area is hoverable, not just border
+            el.style.pointerEvents = 'visiblePainted'; // or 'fill' for shape interiors
+            el.style.cursor = 'pointer';
+            
+            // Store original values including computed styles
+            const cs = getEffectiveColors(el);
+            const origFill = el.style.fill || cs.fill || '';
+            const origStroke = el.style.stroke || cs.stroke || '';
+            const origStrokeWidth = el.style.strokeWidth || window.getComputedStyle(el).strokeWidth || '0.5px';
+            
+            el.dataset.originalFill = origFill;
+            el.dataset.originalStroke = origStroke;
+            el.dataset.originalStrokeWidth = origStrokeWidth;
+
+            // mouse/touch handlers (also keyboard accessible via focus)
+            const applyHighlight = ()=>{
+              el.classList.add('popout');
+              // Force BOTH fill and stroke to red for consistency
+              el.style.fill = '#ff3b30';
+              el.style.stroke = '#ff3b30';
+              el.style.strokeWidth = '1.5px';
+              // Ensure this element is on top (z-index simulation via paint order)
+              el.style.isolation = 'isolate';
+            };
+            const removeHighlight = ()=>{
+              el.classList.remove('popout');
+              // Restore original values
+              el.style.fill = el.dataset.originalFill;
+              el.style.stroke = el.dataset.originalStroke;
+              el.style.strokeWidth = el.dataset.originalStrokeWidth;
+              el.style.isolation = '';
+            };
+
+            // Direct mouse events without propagation
+            el.addEventListener('mouseenter', applyHighlight, false);
+            el.addEventListener('mouseleave', removeHighlight, false);
+            el.addEventListener('focus', applyHighlight);
+            el.addEventListener('blur', removeHighlight);
+            // touch support
+            el.addEventListener('touchstart', applyHighlight, {passive:true});
+            el.addEventListener('touchend', removeHighlight, {passive:true});
+
+            // Make element focusable for keyboard users
+            if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','0');
+            if(el.id && !el.getAttribute('role')) el.setAttribute('role','img');
+          }
+        });
+
+      }).catch(err=>{
+        console.warn('Could not inline SVG:', err);
+        // Fallback: show SVG as an <img>
+        const img = document.createElement('img');
+        img.src = 'maps.svg';
+        img.alt = 'Map (fallback)';
+        img.style.width = '100%';
+        container.appendChild(img);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -41,4 +41,3 @@ Edit `.interactive-region.popout` in `css/style.css` to change stroke width or a
 ## Browser Support
 
 Works in all modern browsers: Chrome, Firefox, Safari, Edge
-# js-interactive-map

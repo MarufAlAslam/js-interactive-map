@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#map-container {
+  width: 100%;
+  height: 100vh;
+  overflow: visible;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Interactive region styles */
+.interactive-region {
+  transition: fill .2s ease, stroke .2s ease, stroke-width .2s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  stroke-width: 0.5px;
+  outline: none;
+}
+
+.interactive-region.popout {
+  stroke-width: 1.5px;
+}
+
+.interactive-region:hover,
+.interactive-region:focus,
+.interactive-region:active {
+  fill: #ff3b30 !important;
+  stroke: #ff3b30 !important;
+  outline: none;
+}
