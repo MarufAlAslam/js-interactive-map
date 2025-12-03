@@ -63,7 +63,7 @@ svg {
   background-color: #ffffff;
   padding: 40px;
   border-radius: 16px;
-  max-width: 600px;
+  max-width: 900px;
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
@@ -129,8 +129,8 @@ svg {
 }
 
 .modal-contacts {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
 
@@ -180,6 +180,10 @@ svg {
     padding: 30px 20px;
     width: 95%;
     max-height: 90vh;
+  }
+
+  .modal-contacts {
+    grid-template-columns: 1fr;
   }
 
   .modal-title {

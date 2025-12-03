@@ -190,37 +190,7 @@ const contactData = {
       address: '200 Eurostar Blvd, Pleasanton, TX 78064'
     }]
   },
-  'Mexico': {
-    company: 'Global Engine Controls',
-    logo: 'img/logos/GlobalEngineContolsLogo.png',
-    contacts: [
-      {
-        area: 'Latin America and Caribbean',
-        phone: '832-278-5437',
-        email: 'mmorales@gec-lac.com',
-        address: ''
-      },
-      {
-        area: 'Mexico',
-        phone: '+ 52 993 220 6136',
-        email: 'msanchez@gec-lac.com',
-        address: ''
-      },
-      {
-        area: 'Bolivia',
-        phone: '+ 591 6 448 1682',
-        email: 'bportugal@gec-lac.com',
-        address: ''
-      },
-      {
-        area: 'Brazil',
-        phone: '+ 55 48 99927 9852',
-        email: 'lmenezes@gec-lac.com',
-        address: ''
-      }
-    ]
-  },
-  'South America': {
+  'Global Engine Controls': {
     company: 'Global Engine Controls',
     logo: 'img/logos/GlobalEngineContolsLogo.png',
     contacts: [
@@ -254,17 +224,86 @@ const contactData = {
 
 // Add aliases for common naming variations
 // Map alternative names to the canonical region names
-contactData['SouthAmerica'] = contactData['South America'];
-contactData['LatinAmerica'] = contactData['South America'];
-contactData['Caribbean'] = contactData['South America'];
-contactData['Argentina'] = contactData['South America'];
-contactData['Brazil'] = contactData['South America'];
-contactData['Bolivia'] = contactData['South America'];
-contactData['Peru'] = contactData['South America'];
-contactData['Chile'] = contactData['South America'];
-contactData['Venezuela'] = contactData['South America'];
-contactData['Colombia'] = contactData['South America'];
-contactData['Ecuador'] = contactData['South America'];
+
+// Global Engine Controls aliases (Mexico and South America)
+contactData['Mexico'] = contactData['Global Engine Controls'];
+contactData['Brazil'] = contactData['Global Engine Controls'];
+contactData['Bolivia'] = contactData['Global Engine Controls'];
+contactData['SouthAmerica'] = contactData['Global Engine Controls'];
+contactData['LatinAmerica'] = contactData['Global Engine Controls'];
+contactData['Latin America and Caribbean'] = contactData['Global Engine Controls'];
+contactData['Caribbean'] = contactData['Global Engine Controls'];
+contactData['Argentina'] = contactData['Global Engine Controls'];
+contactData['Peru'] = contactData['Global Engine Controls'];
+contactData['Chile'] = contactData['Global Engine Controls'];
+contactData['Venezuela'] = contactData['Global Engine Controls'];
+contactData['Colombia'] = contactData['Global Engine Controls'];
+contactData['Ecuador'] = contactData['Global Engine Controls'];
+
+// Add aliases for Wyoming regions
+contactData['Wyoming_Service_and_Supply_Territory'] = contactData['Western Wyoming'];
+contactData['Wyoming_Serive_Supply'] = contactData['Western Wyoming'];
+contactData['WyomingServiceandSupplyTerritory'] = contactData['Western Wyoming'];
+contactData['Pnuematic_Controls'] = contactData['Western Wyoming']; // Parent group with typo
+
+// Add aliases for Utah region (Sivalls company)
+contactData['Sivalls'] = contactData['Utah'];
+contactData['Sivalls_Utah_Territory'] = contactData['Utah'];
+contactData['SivallsUtahTerritory'] = contactData['Utah'];
+
+// Add aliases for Northeast USA (Alleghany company)
+contactData['Alleghany'] = contactData['Northeast USA'];
+
+// Add aliases for North Dakota (use clickable cls-10 version, NOT cls-3)
+contactData['North_Dakota-2'] = contactData['North Dakota'];
+contactData['NorthDakota2'] = contactData['North Dakota'];
+contactData['Primec_Controls'] = contactData['North Dakota']; // Parent group
+
+// Add aliases for Montana
+contactData['Primec_Controls_Montana'] = contactData['Montana'];
+
+// Add aliases for California (Pneumatic Controls - note SVG has typo "Pnuematic")
+contactData['Pnuematic_Controls_California'] = contactData['California'];
+contactData['PneumaticControls'] = contactData['California'];
+
+// Add aliases for Colorado and Wyoming (Western Sky)
+contactData['Western_Sky'] = contactData['Colorado'];
+contactData['WesternSky'] = contactData['Colorado'];
+contactData['Western_Sky_Wyoming'] = contactData['Wyoming'];
+
+// Add aliases for Quality Control (Southern USA)
+contactData['Quality_Control'] = contactData['Southern USA'];
+contactData['QualityControl'] = contactData['Southern USA'];
+
+// Add aliases for Bob Davis regions
+contactData['Bob_Davis-North_Texas'] = contactData['North Texas'];
+contactData['BobDavisNorthTexas'] = contactData['North Texas'];
+contactData['Bob_Davis-East_Texas'] = contactData['East Texas'];
+contactData['BobDavisEastTexas'] = contactData['East Texas'];
+contactData['Bob_Davis-Shreveport'] = contactData['Shreveport'];
+contactData['BobDavisShreveport'] = contactData['Shreveport'];
+
+// Add aliases for Spindletop Energy Products regions
+contactData['Spindletop_Energy_Products-Oklahoma'] = contactData['Oklahoma'];
+contactData['SpindletopEnergyProductsOklahoma'] = contactData['Oklahoma'];
+contactData['Spindletop_Energy_Products-Houston'] = contactData['Houston'];
+contactData['SpindletopEnergyProductsHouston'] = contactData['Houston'];
+contactData['Spindletop_Energy_Products_New_Iberia'] = contactData['New Iberia'];
+contactData['SpindletopEnergyProductsNewIberia'] = contactData['New Iberia'];
+
+// Add aliases for Strategic Energy Products regions
+contactData['Strategic_Energy_Products-West_Texas_NM'] = contactData['West Texas'];
+contactData['StrategicEnergyProductsWestTexasNM'] = contactData['West Texas'];
+contactData['Strategic_Energy_Products_South_Texas'] = contactData['South Texas'];
+contactData['StrategicEnergyProductsSouthTexas'] = contactData['South Texas'];
+
+    // Add aliases for Mexico region (northern area near Central America/Caribbean)
+    contactData['Mexico'] = contactData['Mexico'];
+    
+// Add aliases for Canada (Excite Automation)
+contactData['Canada-Excite_Automation_and_Controls'] = contactData['Canada'];
+contactData['CanadaExciteAutomationandControls'] = contactData['Canada'];
+contactData['Excite_Automation_and_Controls'] = contactData['Canada'];
 
 function parseColorString(str) {
   if (!str) return null;

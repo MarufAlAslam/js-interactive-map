@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clickable Regions Reference Map</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #ff3b30;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .map-section {
+            position: relative;
+        }
+        .map-section img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ff3b30;
+        }
+        .legend h2 {
+            color: #ff3b30;
+            margin-top: 0;
+            font-size: 20px;
+        }
+        .region-group {
+            margin-bottom: 25px;
+        }
+        .region-group h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .region-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .region-list li {
+            padding: 8px 12px;
+            background: white;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            border-left: 3px solid #ff3b30;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .region-list li:before {
+            content: "✓";
+            color: #ff3b30;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .notes {
+            grid-column: 1 / -1;
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-top: 20px;
+        }
+        .notes h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+        .notes ul {
+            color: #856404;
+            line-height: 1.8;
+        }
+        .note-important {
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #dc3545;
+            margin-top: 15px;
+        }
+        .note-important h4 {
+            color: #721c24;
+            margin-top: 0;
+        }
+        .detailed-regions {
+            margin-top: 40px;
+        }
+        .detailed-regions h2 {
+            color: #ff3b30;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .region-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        .region-card:hover {
+            border-color: #ff3b30;
+            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.15);
+            transform: translateY(-2px);
+        }
+        .region-card h3 {
+            color: #ff3b30;
+            margin-top: 0;
+            font-size: 24px;
+            border-bottom: 2px solid #ff3b30;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .region-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff3b30;
+        }
+        .detail-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .detail-value {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .detail-value strong {
+            color: #ff3b30;
+        }
+        .svg-instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin-top: 15px;
+        }
+        .svg-instructions h4 {
+            color: #1976D2;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        .svg-instructions code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #d63384;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .svg-instructions ul {
+            margin: 10px 0 0 0;
+            padding-left: 20px;
+        }
+        .svg-instructions li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .company-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .company-info h4 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .company-info .logo-name {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .contact-count {
+            background: #fff3cd;
+            color: #856404;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .region-map-preview {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .region-map-preview h4 {
+            color: #ff3b30;
+            margin: 0 0 15px 0;
+            font-size: 16px;
+        }
+        .region-map-preview img {
+            max-width: 100%;
+            width: 250px;
+            height: auto;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+            background: white;
+            opacity: 0.95;
+        }
+        .region-map-preview p {
+            margin: 10px 0 0 0;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .region-map-preview strong {
+            color: #ff3b30;
+            font-weight: 700;
+        }
+        .visual-instruction {
+            background: linear-gradient(135deg, #ff3b30 0%, #ff6b58 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 15px 0 10px 0;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(255, 59, 48, 0.3);
+        }
+        .region-identifier {
+            background: #fff3cd;
+            border-left: 4px solid #ff3b30;
+            padding: 10px 15px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 4px;
+        }
+        .region-identifier strong {
+            color: #ff3b30;
+            font-size: 15px;
+        }
+        .map-marker {
+            display: inline-block;
+            background: #ff3b30;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .location-badge {
+            display: inline-block;
+            background: #ff3b30;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            .region-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Map - Clickable Regions Reference</h1>
+        <p class="subtitle">Complete guide showing all 21 clickable regions with detailed contact information, visual markers, and SVG configuration instructions</p>
+        
+        <div class="content">
+            <div class="map-section">
+                <h2 style="text-align: center; color: #333;">Reference Map</h2>
+                <img src="img/maps.svg" alt="Americas Map" style="max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 8px; padding: 10px; background: white;">
+                <p style="text-align: center; color: #666; margin-top: 15px; font-size: 14px;">
+                    ⬆️ This is the full interactive map showing all clickable regions<br>
+                    Grey regions with <strong>thick dark borders</strong> (#C7C8CA) are clickable
+                </p>
+            </div>
+            
+            <div class="legend">
+                <h2>Quick Reference Guide</h2>
+                <p style="color: #666; margin-bottom: 20px;">
+                    The map shows <strong>21 clickable regions</strong> across the Americas. Each grey region with thick dark borders can be clicked to display company contact information. Use the reference map on the left to identify each region's location.
+                </p>
+                
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 25px; border-radius: 4px;">
+                    <h4 style="margin: 0 0 10px 0; color: #856404;">📌 Visual Reference Guide</h4>
+                    <p style="margin: 0; color: #856404; font-size: 14px;">
+                        Looking at the map on the left, you can identify regions by their <strong>grey color (#C7C8CA)</strong> and <strong>thick dark borders</strong>. These regions represent different geographical coverage areas for various companies. Scroll through the detailed cards below to see specific contact information for each region.
+                    </p>
+                </div>
+                
+                <h2>17 Clickable Regions with Contact Data</h2>
+                
+                <div class="region-group">
+                    <h3>🍁 Canada Region</h3>
+                    <ul class="region-list">
+                        <li><strong>Canada</strong> → Excite Automation & Controls</li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🏔️ Northwestern USA</h3>
+                    <ul class="region-list">
+                        <li><strong>North Dakota</strong> → Primec Controls</li>
+                        <li><strong>Montana</strong> → Primec Controls</li>
+                        <li><strong>Western Wyoming</strong> → Wyoming Service & Supply</li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🏛️ Northeastern USA</h3>
+                    <ul class="region-list">
+                        <li><strong>Northeast USA</strong> → Alleghany<br>
+                        <small style="color: #666; margin-left: 25px;">(KY, OH, WV, PA, MD, DE, NJ, NY, CT, RI, MA, VT, NH, ME)</small></li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🌄 Western USA</h3>
+                    <ul class="region-list">
+                        <li><strong>California</strong> → Pneumatic Controls</li>
+                        <li><strong>Utah</strong> → Sivalls</li>
+                        <li><strong>Colorado</strong> → Western Sky</li>
+                        <li><strong>Wyoming</strong> → Western Sky</li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🤠 Central USA</h3>
+                    <ul class="region-list">
+                        <li><strong>Oklahoma</strong> → Spindletop Energy Products</li>
+                        <li><strong>Texas Panhandle</strong> → Spindletop Energy Products</li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>⭐ Texas Regions</h3>
+                    <ul class="region-list">
+                        <li><strong>North Texas</strong> → Bob Davis Sales</li>
+                        <li><strong>East Texas</strong> → Bob Davis Sales</li>
+                        <li><strong>Houston</strong> → Spindletop Energy Products</li>
+                        <li><strong>West Texas</strong> → Strategic Energy Products</li>
+                        <li><strong>South Texas</strong> → Strategic Energy Products</li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🎺 Louisiana Regions</h3>
+                    <ul class="region-list">
+                        <li><strong>Shreveport</strong> → Bob Davis Sales</li>
+                        <li><strong>New Iberia</strong> → Spindletop Energy Products</li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🎵 Southern USA</h3>
+                    <ul class="region-list">
+                        <li><strong>Southern USA</strong> → Quality Control Products<br>
+                        <small style="color: #666; margin-left: 25px;">(SE Louisiana, S Mississippi, SW Alabama)</small></li>
+                    </ul>
+                </div>
+                
+                <div class="region-group">
+                    <h3>🌎 Latin America</h3>
+                    <ul class="region-list">
+                        <li><strong>Mexico</strong> → Global Engine Controls<br>
+                        <small style="color: #666; margin-left: 25px;">(4 contacts: Latin America, Mexico, Bolivia, Brazil)</small></li>
+                        <li><strong>South America</strong> → Global Engine Controls<br>
+                        <small style="color: #666; margin-left: 25px;">(Same 4 contacts as Mexico)</small></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="notes">
+                <h3>📋 Important Notes for SVG Configuration</h3>
+                <ul>
+                    <li><strong>Grey Color Required:</strong> All clickable regions must have fill color <code>rgb(199, 200, 202)</code> or <code>#C7C8CA</code></li>
+                    <li><strong>Group Naming:</strong> Thick dark grey borders (groups) need IDs matching the region names above</li>
+                    <li><strong>Not Individual States:</strong> Don't make every state clickable individually - group them according to the regions above</li>
+                    <li><strong>Logo Files:</strong> All 12 company logos are in <code>img/logos/</code> directory</li>
+                </ul>
+                
+                <div class="note-important">
+                    <h4>⚠️ To Make Bottom Regions (Mexico/South America) Work:</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>In your SVG editor, group all Mexico shapes and name the group <strong>"Mexico"</strong></li>
+                        <li>Group all South America shapes and name the group <strong>"SouthAmerica"</strong> or <strong>"South America"</strong></li>
+                        <li>Ensure these groups have the grey border color <code>#C7C8CA</code></li>
+                        <li>Open browser console (F12) and click regions to see detection logs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px; text-align: center;">
+            <h3 style="color: #333; margin-top: 0;">Testing Instructions</h3>
+            <ol style="text-align: left; max-width: 600px; margin: 20px auto; line-height: 1.8;">
+                <li>Open <code>index.html</code> in your web browser</li>
+                <li>Open the browser console (F12 or Right-click → Inspect → Console)</li>
+                <li>Hover over regions to see them turn red</li>
+                <li>Click on each region listed above</li>
+                <li>Console will show which region was detected or why it failed</li>
+                <li>Verify the correct company popup appears</li>
+            </ol>
+        </div>
+
+        <!-- Detailed Region Information -->
+        <div class="detailed-regions">
+            <h2>📍 Detailed Region Breakdown - All 21 Clickable Regions</h2>
+            
+            <!-- Region 1: Canada -->
+            <div class="region-card">
+                <h3>🍁 Region 1: Canada</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">NORTHERN REGION</span></h4>
+                    <div class="visual-instruction">⬆️ Look at the TOP of the map</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: CANADA</strong> - The entire grey region at the top with thick dark borders
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Excite Automation & Controls</h4>
+                    <span class="logo-name">Logo: ExciteAutomationandControlsLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Canada</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">403-800-7015</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">info@excitautomation.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">170, 8489 40th Street SE, Calgary, Alberta T2C 2P1</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Canada</code> or <code>canada</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code> (grey)</li>
+                        <li>This should be the entire Canada territory with thick dark grey borders</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 2: North Dakota -->
+            <div class="region-card">
+                <h3>🏔️ Region 2: North Dakota</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">NORTH CENTRAL USA</span></h4>
+                    <div class="visual-instruction">🔼 Look in the USA - North Central area</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: NORTH DAKOTA</strong> - Grey state below Canada, center-right area
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Primec Controls</h4>
+                    <span class="logo-name">Logo: PrimeCControlsLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">North Dakota and Eastern Montana</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">403-800-7015</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">info@primeccontrols.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">5048 Bennett Industrial Drive, Williston, ND 58803</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>NorthDakota</code> or <code>North Dakota</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Group the North Dakota state shape with thick grey border</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 3: Montana -->
+            <div class="region-card">
+                <h3>⛰️ Region 3: Montana</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">NORTHWEST USA</span></h4>
+                    <div class="visual-instruction">⬅️ Look in the USA - Northwest area</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: MONTANA</strong> - Grey state below Canada, left of North Dakota
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Primec Controls</h4>
+                    <span class="logo-name">Logo: PrimeCControlsLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">North Dakota and Eastern Montana</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">403-800-7015</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">info@primeccontrols.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">5048 Bennett Industrial Drive, Williston, ND 58803</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Montana</code> or <code>montana</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Same company as North Dakota (Primec Controls)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 4: Western Wyoming -->
+            <div class="region-card">
+                <h3>🏔️ Region 4: Western Wyoming</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">MOUNTAIN WEST</span></h4>
+                    <div class="visual-instruction">🏔️ Look in Mountain West area</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: WESTERN WYOMING</strong> - Small grey region, western part of Wyoming state
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Wyoming Service & Supply</h4>
+                    <span class="logo-name">Logo: WyomingServiceandSupplyLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Western Wyoming</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">307-382-2717</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">wyss@sweetwaterhsa.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">207 Mesa Drive, Rock Springs, WY, USA</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>WesternWyoming</code> or <code>Western Wyoming</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Only the western portion of Wyoming state</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 5: Northeast USA -->
+            <div class="region-card">
+                <h3>🏛️ Region 5: Northeast USA (14 States)</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">NORTHEAST REGION</span></h4>
+                    <div class="visual-instruction">➡️ Look on the RIGHT side of USA</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: NORTHEAST USA (14 States)</strong> - Large grey region on east coast (KY, OH, WV, PA, MD, DE, NJ, NY, CT, RI, MA, VT, NH, ME)
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Alleghany</h4>
+                    <span class="logo-name">Logo: AlleghanyProductsLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Kentucky, Ohio, West Virginia, Pennsylvania, Maryland, Delaware, New Jersey, New York, Connecticut, Rhode Island, Massachusetts, Vermont, New Hampshire, and Maine</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">412-385-1080</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value"><em>Not provided</em></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">67037 Executive Dr, St. Clairsville, OH 43950</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>NortheastUSA</code> or <code>Northeast USA</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li><strong>Important:</strong> Group all 14 states together as one clickable region</li>
+                        <li>States: KY, OH, WV, PA, MD, DE, NJ, NY, CT, RI, MA, VT, NH, ME</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 6: California -->
+            <div class="region-card">
+                <h3>☀️ Region 6: California</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">WEST COAST</span></h4>
+                    <div class="visual-instruction">⬅️ Look on the LEFT side (West Coast)</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: CALIFORNIA</strong> - Long grey state on west coast
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Pneumatic Controls</h4>
+                    <span class="logo-name">Logo: PneumaticControlLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">California</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">661-325-1200</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">info@pneumaticcontrol.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">1200 34th Street, Bakersfield, CA 93301</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>California</code> or <code>california</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Entire California state with thick grey border</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 7: Utah -->
+            <div class="region-card">
+                <h3>🏜️ Region 7: Utah</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">MOUNTAIN REGION</span></h4>
+                    <div class="visual-instruction">🏜️ Look in Mountain West</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: UTAH</strong> - Grey state east of California
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Sivalls</h4>
+                    <span class="logo-name">Logo: SivallsLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Utah</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">435-789-9696</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">vernal@sivalls.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">409 S 800 E, Vernal, Utah 84078</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Utah</code> or <code>utah</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Entire Utah state</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 8: Colorado -->
+            <div class="region-card">
+                <h3>🏔️ Region 8: Colorado</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">ROCKY MOUNTAINS</span></h4>
+                    <div class="visual-instruction">🏔️ Look in Central Rockies</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: COLORADO</strong> - Rectangular grey state east of Utah
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Western Sky</h4>
+                    <span class="logo-name">Logo: WesternSkyLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Northern Colorado and Southeast Wyoming</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">970-203-4279</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">jchick@westernskyenergy.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">501 6th Street, Greeley, CO 80631</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Colorado</code> or <code>colorado</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Entire Colorado state</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 9: Wyoming -->
+            <div class="region-card">
+                <h3>🦬 Region 9: Wyoming (Southeast)</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">SE WYOMING</span></h4>
+                    <div class="visual-instruction">🧭 Look north of Colorado</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: SOUTHEAST WYOMING</strong> - Grey region, southeastern part of Wyoming
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Western Sky</h4>
+                    <span class="logo-name">Logo: WesternSkyLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Northern Colorado and Southeast Wyoming</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">970-203-4279</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">jchick@westernskyenergy.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">501 6th Street, Greeley, CO 80631</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Wyoming</code> or <code>wyoming</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Same company as Colorado (Western Sky)</li>
+                        <li>Southeast portion of Wyoming (different from Western Wyoming)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 10: Oklahoma -->
+            <div class="region-card">
+                <h3>🌾 Region 10: Oklahoma</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">SOUTH CENTRAL USA</span></h4>
+                    <div class="visual-instruction">🔼 Look in South Central USA</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: OKLAHOMA</strong> - Grey state north of Texas
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Spindletop Energy Products</h4>
+                    <span class="logo-name">Logo: SpindletopEnergyProductsLogo.jpg</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Oklahoma and Texas Panhandle</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">405-504-9006</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">sales-okc@spindletopep.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">424 S Eagle Ln, Oklahoma City, OK 73128</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Oklahoma</code> or <code>oklahoma</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Entire Oklahoma state</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 11: Texas Panhandle -->
+            <div class="region-card">
+                <h3>🤠 Region 11: Texas Panhandle</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">NORTH TEXAS</span></h4>
+                    <div class="visual-instruction">🔽 Look at top of Texas</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: TEXAS PANHANDLE</strong> - Grey region at northern "handle" of Texas
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Spindletop Energy Products</h4>
+                    <span class="logo-name">Logo: SpindletopEnergyProductsLogo.jpg</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Oklahoma and Texas Panhandle</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">405-504-9006</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">sales-okc@spindletopep.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">424 S Eagle Ln, Oklahoma City, OK 73128</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>TexasPanhandle</code> or <code>Texas Panhandle</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Northern panhandle region of Texas</li>
+                        <li>Same company as Oklahoma</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 12: North Texas -->
+            <div class="region-card">
+                <h3>⭐ Region 12: North Texas</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">NORTH CENTRAL TEXAS</span></h4>
+                    <div class="visual-instruction">🔼 Look in North-Central Texas</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: NORTH TEXAS</strong> - Grey region in Dallas/Fort Worth area
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Bob Davis Sales</h4>
+                    <span class="logo-name">Logo: BobDavisSalesLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">North Texas</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">817-641-0500</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">jacksboro@bobdavissales.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">956 S Main Street, Jacksboro, TX 76458</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>NorthTexas</code> or <code>North Texas</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Northern region of Texas (below panhandle)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 13: East Texas -->
+            <div class="region-card">
+                <h3>🌲 Region 13: East Texas</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">EAST TEXAS</span></h4>
+                    <div class="visual-instruction">➡️ Look in Eastern Texas</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: EAST TEXAS</strong> - Grey region in eastern part of Texas
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Bob Davis Sales</h4>
+                    <span class="logo-name">Logo: BobDavisSalesLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">East Texas</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">903-984-3093</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">kilgore@bobdavissales.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">214 E Danville Street, Kilgore, TX 75662</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>EastTexas</code> or <code>East Texas</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Eastern region of Texas</li>
+                        <li>Same company as North Texas but different contact</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 14: Shreveport -->
+            <div class="region-card">
+                <h3>🎺 Region 14: Shreveport (Northern Louisiana)</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">N LOUISIANA</span></h4>
+                    <div class="visual-instruction">🔼 Look in Northern Louisiana</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: SHREVEPORT</strong> - Grey region in northern Louisiana
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Bob Davis Sales</h4>
+                    <span class="logo-name">Logo: BobDavisSalesLogo.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Northern Louisiana</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">318-222-7121</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">shreveport@bobdavissales.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">1728 N Market Street, Shreveport, LA 71107</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Shreveport</code> or <code>shreveport</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Northern Louisiana region around Shreveport</li>
+                        <li>Same company as North/East Texas but different contact</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 15: New Iberia -->
+            <div class="region-card">
+                <h3>🎷 Region 15: New Iberia (Southwest Louisiana)</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">SW LOUISIANA</span></h4>
+                    <div class="visual-instruction">↙️ Look in Southwest Louisiana (Gulf)</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: NEW IBERIA</strong> - Grey region in SW Louisiana coast
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Spindletop Energy Products</h4>
+                    <span class="logo-name">Logo: SpindletopEnergyProductsLogo.jpg</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Southwest Louisiana</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">337-443-0630</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">sales-louisiana@spindletopep.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">1215 S. Import Drive, New Iberia, LA 70560</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>NewIberia</code> or <code>New Iberia</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Southwest Louisiana region around New Iberia</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 16: Southern USA -->
+            <div class="region-card">
+                <h3>🎵 Region 16: Southern USA States</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">GULF COAST</span></h4>
+                    <div class="visual-instruction">🌊 Look along the Gulf Coast</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: SOUTHERN USA (Multi-State)</strong> - Grey region covering SE Louisiana, S Mississippi, SW Alabama
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Quality Control Products</h4>
+                    <span class="logo-name">Logo: QualityControlProducts.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Southeast Louisiana, Southern Mississippi, and Southwest Alabama</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">504-392-9464</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">pcallegan@qcp-llc.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">5201 Westbank Expressway, Suite 101, Marrero, Louisiana 70072</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>SouthernUSA</code> or <code>Southern USA</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li><strong>Important:</strong> Group parts of 3 states: SE Louisiana, S Mississippi, SW Alabama</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 17: Houston -->
+            <div class="region-card">
+                <h3>🚀 Region 17: Houston (Southeast Texas)</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">SE TEXAS COAST</span></h4>
+                    <div class="visual-instruction">↘️ Look in Southeast Texas (Gulf Coast)</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: HOUSTON REGION</strong> - Grey region on Texas Gulf Coast
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Spindletop Energy Products</h4>
+                    <span class="logo-name">Logo: SpindletopEnergyProductsLogo.jpg</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">Southeast Texas and Gulf Coast</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">832-856-4500</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">sales-houston@spindletopep.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">17535 Roberts Road Hockley, TX 77447</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Houston</code> or <code>houston</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Southeast Texas region including Houston and Gulf Coast</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 18: West Texas -->
+            <div class="region-card">
+                <h3>🌵 Region 18: West Texas</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">WEST TEXAS</span></h4>
+                    <div class="visual-instruction">⬅️ Look in Western Texas</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: WEST TEXAS</strong> - Grey region in western Texas (Permian Basin)
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Strategic Energy Products</h4>
+                    <span class="logo-name">Logo: StrategicEnergyProducts.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">West Texas and Southeast New Mexico</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">432-561-5654</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">info@sep-usa.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">401 Lufkin Road, Odessa, TX 79765</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>WestTexas</code> or <code>West Texas</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Western region of Texas (Odessa/Midland area)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 19: South Texas -->
+            <div class="region-card">
+                <h3>🌮 Region 19: South Texas</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">SOUTH TEXAS</span></h4>
+                    <div class="visual-instruction">🔽 Look in Southern Texas</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: SOUTH TEXAS</strong> - Grey region near Mexico border
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Strategic Energy Products</h4>
+                    <span class="logo-name">Logo: StrategicEnergyProducts.png</span>
+                </div>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Coverage Area</div>
+                        <div class="detail-value">South Texas</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">832-482-8207</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">info@sep-usa.com</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Address</div>
+                        <div class="detail-value">200 Eurostar Blvd, Pleasanton, TX 78064</div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>SouthTexas</code> or <code>South Texas</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li>Southern region of Texas</li>
+                        <li>Same company as West Texas but different contact</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 20: Mexico -->
+            <div class="region-card">
+                <h3>🇲🇽 Region 20: Mexico</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">MEXICO</span></h4>
+                    <div class="visual-instruction">🔽 Look BELOW the USA</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: MEXICO</strong> - Entire grey country below USA with thick borders
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Global Engine Controls</h4>
+                    <span class="logo-name">Logo: GlobalEngineContolsLogo.png</span>
+                </div>
+                <span class="contact-count">⚠️ Multiple Contacts: 4 different regional contacts in one popup</span>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 1: Latin America & Caribbean</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> 832-278-5437<br>
+                            <strong>Email:</strong> mmorales@gec-lac.com
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 2: Mexico</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> + 52 993 220 6136<br>
+                            <strong>Email:</strong> msanchez@gec-lac.com
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 3: Bolivia</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> + 591 6 448 1682<br>
+                            <strong>Email:</strong> bportugal@gec-lac.com
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 4: Brazil</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> + 55 48 99927 9852<br>
+                            <strong>Email:</strong> lmenezes@gec-lac.com
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>Mexico</code> or <code>mexico</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li><strong>Critical:</strong> Group entire Mexico with thick grey borders</li>
+                        <li>This region shows 4 contacts in the popup</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Region 21: South America -->
+            <div class="region-card">
+                <h3>🌎 Region 21: South America</h3>
+                
+                <div class="region-map-preview">
+                    <h4>📍 Map Location <span class="map-marker">SOUTH AMERICA</span></h4>
+                    <div class="visual-instruction">🔽 Look at BOTTOM of map</div>
+                    <img src="img/maps.svg" alt="Americas Map">
+                    <div class="region-identifier">
+                        <strong>🔴 Find: SOUTH AMERICA</strong> - Entire grey continent at bottom (Brazil, Argentina, Bolivia, Peru, Chile, Colombia, Venezuela, Ecuador, etc.)
+                    </div>
+                </div>
+                
+                <div class="company-info">
+                    <h4>Global Engine Controls</h4>
+                    <span class="logo-name">Logo: GlobalEngineContolsLogo.png</span>
+                </div>
+                <span class="contact-count">⚠️ Multiple Contacts: Same 4 contacts as Mexico region</span>
+                <div class="region-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 1: Latin America & Caribbean</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> 832-278-5437<br>
+                            <strong>Email:</strong> mmorales@gec-lac.com
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 2: Mexico</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> + 52 993 220 6136<br>
+                            <strong>Email:</strong> msanchez@gec-lac.com
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 3: Bolivia</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> + 591 6 448 1682<br>
+                            <strong>Email:</strong> bportugal@gec-lac.com
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Contact 4: Brazil</div>
+                        <div class="detail-value">
+                            <strong>Phone:</strong> + 55 48 99927 9852<br>
+                            <strong>Email:</strong> lmenezes@gec-lac.com
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-instructions">
+                    <h4>SVG Configuration:</h4>
+                    <ul>
+                        <li>Group ID: <code>SouthAmerica</code> or <code>South America</code></li>
+                        <li>Fill Color: <code>#C7C8CA</code></li>
+                        <li><strong>Critical:</strong> Group entire South America continent with thick grey borders</li>
+                        <li>Includes all South American countries: Brazil, Argentina, Bolivia, Peru, Chile, Colombia, Venezuela, Ecuador, etc.</li>
+                        <li>Same company and contacts as Mexico</li>
+                        <li>Alternative IDs also work: Argentina, Brazil, Bolivia, Peru, Chile, Venezuela, Colombia, Ecuador, LatinAmerica, Caribbean</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -232,8 +232,8 @@
       <polygon class="cls-9" points="300.45 382.29 300.41 382.39 300.4 382.49 300.44 382.49 300.47 382.39 300.53 382.31 300.66 382.18 300.91 381.98 301.03 381.84 301.48 381.58 301.74 381.34 301.89 381.24 302.05 381.19 302.4 381.01 302.41 380.98 302.45 380.92 302.46 380.88 302.46 380.83 302.45 380.68 302.43 380.63 302.41 380.63 302.38 380.64 302.34 380.65 302.32 380.68 302.33 380.79 302.33 380.84 302.27 380.94 302.21 380.97 302.03 380.96 301.92 380.98 301.86 381.02 301.76 381.12 301.54 381.23 301.5 381.26 301.46 381.32 301.26 381.44 301.21 381.54 301.17 381.57 300.99 381.69 300.93 381.71 300.85 381.73 300.7 381.79 300.6 381.8 300.52 381.84 300.5 381.94 300.52 382.04 300.55 382.1 300.56 382.14 300.5 382.2 300.45 382.29"/>
     </g>
   </g>
-  <g id="Global_Engine_Controls" data-name="Global Engine Controls">
-    <g id="Mexico" data-name="Mexico">
+  <g id="Golbal_Engine_Controls" data-name="Golbal Engine Controls">
+    <g>
       <path class="cls-10" d="M447.23,442.63l1.2.77-.89.31-.37-.43.06-.66h0ZM447.8,440.32l-.57.74.69.63.2-.71-.31-.66h0ZM443.95,441.63l-.57.4.43.6.83.12-.69-1.12h0ZM442.06,439.06l.66-.48,1.03-.03-.6.69-.03.86-.94-.66-.12-.37h0ZM436.83,440.26l.43.43-1.26.17.83-.6Z"/>
       <path class="cls-10" d="M433.32,439.92l.66-.64,1.1.3-.3.26-1.46.08h0ZM432.54,437.89l-.49-.23-1.63.23-2.89-.26-.32.57-.69.34.09.54-.12.4.34.66,1.89.09.51.17,1.37-.34.51.26,1.32-.6,1.03-1.12-.74-.23-.2-.49Z"/>
       <path class="cls-10" d="M421.35,438.7l.44.47.65.08-.5.36-.55-.23-.3-.56.26-.13h0ZM409.32,432.58l.11.4-.4.74.31.63-.26.86-.63.31-.11.32.37.83-.03.66-.06.49-.94,1,.07.44.44.04.43.89-.26.66.71.29.2.4.51.26.49-1.17.97-1.29-.11-.4.34-.57.46.43.54.06.49-.97.57.34.06.77.46.29,1.06-.29,1.06-.97,1.14-.2,1.23.17.77-.29.57.46.91.06,1.11.29.23-.63h.49l.37-.63-.34-.57-1.6-.91h-.6l-.97-.31-.66.03-1.06-.51-1.11-.66h-.77l.54-.2,1.12.31,1.71.17.69-.26-.51-.4-.46.09-1.29-.26-.63-1.23h-.71l-.34.14-.51-.37-3.31-.71-.37.23-.74-.2-1.31.23-.42.75Z"/>
@@ -3978,5 +3978,98 @@
       <polygon class="cls-8" points="411.46 275.8 411.41 275.71 411.33 275.72 411.29 275.8 411.27 275.89 411.28 275.96 411.29 276.07 411.3 276.15 411.34 276.19 411.42 276.12 411.51 276.06 411.51 275.93 411.46 275.8"/>
       <polygon class="cls-8" points="331.58 333.65 331.44 333.73 331.42 333.93 331.46 333.99 331.51 334.04 331.8 334 331.81 333.93 331.73 333.71 331.58 333.65"/>
     </g>
+  </g>
+  <!-- Red Region Markers -->
+  <g id="Region_Markers">
+    <defs>
+      <style>
+        .marker-text { fill: #ff3b30; font-family: Metropolis-Bold, sans-serif; font-size: 6px; font-weight: 700; }
+        .marker-circle { fill: #ff3b30; opacity: 0.8; }
+      </style>
+    </defs>
+    
+    <!-- 1. CANADA -->
+    <circle class="marker-circle" cx="350" cy="200" r="3"/>
+    <text class="marker-text" x="355" y="202">1. CANADA</text>
+    
+    <!-- 2. NORTH DAKOTA -->
+    <circle class="marker-circle" cx="300" cy="270" r="3"/>
+    <text class="marker-text" x="305" y="272">2. N. DAKOTA</text>
+    
+    <!-- 3. MONTANA -->
+    <circle class="marker-circle" cx="245" cy="262" r="3"/>
+    <text class="marker-text" x="250" y="264">3. MONTANA</text>
+    
+    <!-- 4. WESTERN WYOMING -->
+    <circle class="marker-circle" cx="240" cy="290" r="3"/>
+    <text class="marker-text" x="245" y="292">4. W. WYOMING</text>
+    
+    <!-- 5. NORTHEAST USA (14 states) -->
+    <circle class="marker-circle" cx="395" cy="285" r="3"/>
+    <text class="marker-text" x="400" y="287">5. NE USA</text>
+    
+    <!-- 6. CALIFORNIA -->
+    <circle class="marker-circle" cx="190" cy="380" r="3"/>
+    <text class="marker-text" x="195" y="382">6. CALIFORNIA</text>
+    
+    <!-- 7. UTAH -->
+    <circle class="marker-circle" cx="240" cy="340" r="3"/>
+    <text class="marker-text" x="245" y="342">7. UTAH</text>
+    
+    <!-- 8. COLORADO -->
+    <circle class="marker-circle" cx="270" cy="320" r="3"/>
+    <text class="marker-text" x="275" y="322">8. COLORADO</text>
+    
+    <!-- 9. WYOMING (SE) -->
+    <circle class="marker-circle" cx="265" cy="295" r="3"/>
+    <text class="marker-text" x="270" y="297">9. SE WYOMING</text>
+    
+    <!-- 10. OKLAHOMA -->
+    <circle class="marker-circle" cx="280" cy="340" r="3"/>
+    <text class="marker-text" x="285" y="342">10. OKLAHOMA</text>
+    
+    <!-- 11. TEXAS PANHANDLE -->
+    <circle class="marker-circle" cx="275" cy="360" r="3"/>
+    <text class="marker-text" x="280" y="362">11. TX PANHANDLE</text>
+    
+    <!-- 12. NORTH TEXAS -->
+    <circle class="marker-circle" cx="300" cy="370" r="3"/>
+    <text class="marker-text" x="305" y="372">12. N. TEXAS</text>
+    
+    <!-- 13. EAST TEXAS -->
+    <circle class="marker-circle" cx="315" cy="385" r="3"/>
+    <text class="marker-text" x="320" y="387">13. E. TEXAS</text>
+    
+    <!-- 14. WEST TEXAS -->
+    <circle class="marker-circle" cx="265" cy="390" r="3"/>
+    <text class="marker-text" x="270" y="392">14. W. TEXAS</text>
+    
+    <!-- 15. SOUTH TEXAS -->
+    <circle class="marker-circle" cx="290" cy="420" r="3"/>
+    <text class="marker-text" x="295" y="422">15. S. TEXAS</text>
+    
+    <!-- 16. HOUSTON -->
+    <circle class="marker-circle" cx="310" cy="405" r="3"/>
+    <text class="marker-text" x="315" y="407">16. HOUSTON</text>
+    
+    <!-- 17. SHREVEPORT -->
+    <circle class="marker-circle" cx="330" cy="385" r="3"/>
+    <text class="marker-text" x="335" y="387">17. SHREVEPORT</text>
+    
+    <!-- 18. NEW IBERIA -->
+    <circle class="marker-circle" cx="330" cy="405" r="3"/>
+    <text class="marker-text" x="335" y="407">18. NEW IBERIA</text>
+    
+    <!-- 19. SOUTHERN USA -->
+    <circle class="marker-circle" cx="360" cy="370" r="3"/>
+    <text class="marker-text" x="365" y="372">19. SOUTHERN USA</text>
+    
+    <!-- 20. MEXICO -->
+    <circle class="marker-circle" cx="250" cy="470" r="3"/>
+    <text class="marker-text" x="255" y="472">20. MEXICO</text>
+    
+    <!-- 21. SOUTH AMERICA -->
+    <circle class="marker-circle" cx="280" cy="650" r="3"/>
+    <text class="marker-text" x="285" y="652">21. S. AMERICA</text>
   </g>
 </svg>
