@@ -1,309 +1,99 @@
-// Contact information data for each region
-const contactData = {
-  'Canada': {
-    company: 'Excite Automation & Controls',
-    logo: 'img/logos/ExciteAutomationandControlsLogo.png',
-    contacts: [{
-      area: 'Canada',
-      phone: '403-800-7015',
-      email: 'info@excitautomation.com',
-      address: '170, 8489 40th Street SE, Calgary, Alberta T2C 2P1'
-    }]
-  },
-  'North Dakota': {
-    company: 'Primec Controls',
-    logo: 'img/logos/PrimeCControlsLogo.png',
-    contacts: [{
-      area: 'North Dakota and Eastern Montana',
-      phone: '403-800-7015',
-      email: 'info@primeccontrols.com',
-      address: '5048 Bennett Industrial Drive, Williston, ND 58803'
-    }]
-  },
-  'Montana': {
-    company: 'Primec Controls',
-    logo: 'img/logos/PrimeCControlsLogo.png',
-    contacts: [{
-      area: 'North Dakota and Eastern Montana',
-      phone: '403-800-7015',
-      email: 'info@primeccontrols.com',
-      address: '5048 Bennett Industrial Drive, Williston, ND 58803'
-    }]
-  },
-  'Western Wyoming': {
-    company: 'Wyoming Service & Supply',
-    logo: 'img/logos/WyomingServiceandSupplyLogo.png',
-    contacts: [{
-      area: 'Western Wyoming',
-      phone: '307-382-2717',
-      email: 'wyss@sweetwaterhsa.com',
-      address: '207 Mesa Drive, Rock Springs, WY, USA'
-    }]
-  },
-  'Northeast USA': {
-    company: 'Alleghany',
-    logo: 'img/logos/AlleghanyProductsLogo.png',
-    contacts: [{
-      area: 'Kentucky, Ohio, West Virginia, Pennsylvania, Maryland, Delaware, New Jersey, New York, Connecticut, Rhode Island, Massachusetts, Vermont, New Hampshire, and Maine',
-      phone: '412-385-1080',
-      email: '',
-      address: '67037 Executive Dr, St. Clairsville, OH 43950'
-    }]
-  },
-  'California': {
-    company: 'Pneumatic Controls',
-    logo: 'img/logos/PneumaticControlLogo.png',
-    contacts: [{
-      area: 'California',
-      phone: '661-325-1200',
-      email: 'info@pneumaticcontrol.com',
-      address: '1200 34th Street, Bakersfield, CA 93301'
-    }]
-  },
-  'Utah': {
-    company: 'Sivalls',
-    logo: 'img/logos/SivallsLogo.png',
-    contacts: [{
-      area: 'Utah',
-      phone: '435-789-9696',
-      email: 'vernal@sivalls.com',
-      address: '409 S 800 E, Vernal, Utah 84078'
-    }]
-  },
-  'Colorado': {
-    company: 'Western Sky',
-    logo: 'img/logos/WesternSkyLogo.png',
-    contacts: [{
-      area: 'Northern Colorado and Southeast Wyoming',
-      phone: '970-203-4279',
-      email: 'jchick@westernskyenergy.com',
-      address: '501 6th Street, Greeley, CO 80631'
-    }]
-  },
-  'Wyoming': {
-    company: 'Western Sky',
-    logo: 'img/logos/WesternSkyLogo.png',
-    contacts: [{
-      area: 'Northern Colorado and Southeast Wyoming',
-      phone: '970-203-4279',
-      email: 'jchick@westernskyenergy.com',
-      address: '501 6th Street, Greeley, CO 80631'
-    }]
-  },
-  'Oklahoma': {
-    company: 'Spindletop Energy Products',
-    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
-    contacts: [{
-      area: 'Oklahoma and Texas Panhandle',
-      phone: '405-504-9006',
-      email: 'sales-okc@spindletopep.com',
-      address: '424 S Eagle Ln, Oklahoma City, OK 73128'
-    }]
-  },
-  'Texas Panhandle': {
-    company: 'Spindletop Energy Products',
-    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
-    contacts: [{
-      area: 'Oklahoma and Texas Panhandle',
-      phone: '405-504-9006',
-      email: 'sales-okc@spindletopep.com',
-      address: '424 S Eagle Ln, Oklahoma City, OK 73128'
-    }]
-  },
-  'North Texas': {
-    company: 'Bob Davis Sales',
-    logo: 'img/logos/BobDavisSalesLogo.png',
-    contacts: [{
-      area: 'North Texas',
-      phone: '817-641-0500',
-      email: 'jacksboro@bobdavissales.com',
-      address: '956 S Main Street, Jacksboro, TX 76458'
-    }]
-  },
-  'East Texas': {
-    company: 'Bob Davis Sales',
-    logo: 'img/logos/BobDavisSalesLogo.png',
-    contacts: [{
-      area: 'East Texas',
-      phone: '903-984-3093',
-      email: 'kilgore@bobdavissales.com',
-      address: '214 E Danville Street, Kilgore, TX 75662'
-    }]
-  },
-  'Shreveport': {
-    company: 'Bob Davis Sales',
-    logo: 'img/logos/BobDavisSalesLogo.png',
-    contacts: [{
-      area: 'Northern Louisiana',
-      phone: '318-222-7121',
-      email: 'shreveport@bobdavissales.com',
-      address: '1728 N Market Street, Shreveport, LA 71107'
-    }]
-  },
-  'New Iberia': {
-    company: 'Spindletop Energy Products',
-    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
-    contacts: [{
-      area: 'Southwest Louisiana',
-      phone: '337-443-0630',
-      email: 'sales-louisiana@spindletopep.com',
-      address: '1215 S. Import Drive, New Iberia, LA 70560'
-    }]
-  },
-  'Southern USA': {
-    company: 'Quality Control Products',
-    logo: 'img/logos/QualityControlProducts.png',
-    contacts: [{
-      area: 'Southeast Louisiana, Southern Mississippi, and Southwest Alabama',
-      phone: '504-392-9464',
-      email: 'pcallegan@qcp-llc.com',
-      address: '5201 Westbank Expressway, Suite 101, Marrero, Louisiana 70072'
-    }]
-  },
-  'Houston': {
-    company: 'Spindletop Energy Products',
-    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
-    contacts: [{
-      area: 'Southeast Texas and Gulf Coast',
-      phone: '832-856-4500',
-      email: 'sales-houston@spindletopep.com',
-      address: '17535 Roberts Road Hockley, TX 77447'
-    }]
-  },
-  'West Texas': {
-    company: 'Strategic Energy Products',
-    logo: 'img/logos/StrategicEnergyProducts.png',
-    contacts: [{
-      area: 'West Texas and Southeast New Mexico',
-      phone: '432-561-5654',
-      email: 'info@sep-usa.com',
-      address: '401 Lufkin Road, Odessa, TX 79765'
-    }]
-  },
-  'South Texas': {
-    company: 'Strategic Energy Products',
-    logo: 'img/logos/StrategicEnergyProducts.png',
-    contacts: [{
-      area: 'South Texas',
-      phone: '832-482-8207',
-      email: 'info@sep-usa.com',
-      address: '200 Eurostar Blvd, Pleasanton, TX 78064'
-    }]
-  },
-  'Global Engine Controls': {
-    company: 'Global Engine Controls',
-    logo: 'img/logos/GlobalEngineContolsLogo.png',
-    contacts: [
-      {
-        area: 'Latin America and Caribbean',
-        phone: '832-278-5437',
-        email: 'mmorales@gec-lac.com',
-        address: ''
-      },
-      {
-        area: 'Mexico',
-        phone: '+ 52 993 220 6136',
-        email: 'msanchez@gec-lac.com',
-        address: ''
-      },
-      {
-        area: 'Bolivia',
-        phone: '+ 591 6 448 1682',
-        email: 'bportugal@gec-lac.com',
-        address: ''
-      },
-      {
-        area: 'Brazil',
-        phone: '+ 55 48 99927 9852',
-        email: 'lmenezes@gec-lac.com',
-        address: ''
-      }
-    ]
-  }
-};
+// Contact information data - loaded from JSON file
+let contactData = {};
 
-// Add aliases for common naming variations
-// Map alternative names to the canonical region names
-
-// Global Engine Controls aliases (Mexico and South America)
-contactData['Mexico'] = contactData['Global Engine Controls'];
-contactData['Brazil'] = contactData['Global Engine Controls'];
-contactData['Bolivia'] = contactData['Global Engine Controls'];
-contactData['SouthAmerica'] = contactData['Global Engine Controls'];
-contactData['LatinAmerica'] = contactData['Global Engine Controls'];
-contactData['Latin America and Caribbean'] = contactData['Global Engine Controls'];
-contactData['Caribbean'] = contactData['Global Engine Controls'];
-contactData['Argentina'] = contactData['Global Engine Controls'];
-contactData['Peru'] = contactData['Global Engine Controls'];
-contactData['Chile'] = contactData['Global Engine Controls'];
-contactData['Venezuela'] = contactData['Global Engine Controls'];
-contactData['Colombia'] = contactData['Global Engine Controls'];
-contactData['Ecuador'] = contactData['Global Engine Controls'];
-
-// Add aliases for Wyoming regions
-contactData['Wyoming_Service_and_Supply_Territory'] = contactData['Western Wyoming'];
-contactData['Wyoming_Serive_Supply'] = contactData['Western Wyoming'];
-contactData['WyomingServiceandSupplyTerritory'] = contactData['Western Wyoming'];
-contactData['Pnuematic_Controls'] = contactData['Western Wyoming']; // Parent group with typo
-
-// Add aliases for Utah region (Sivalls company)
-contactData['Sivalls'] = contactData['Utah'];
-contactData['Sivalls_Utah_Territory'] = contactData['Utah'];
-contactData['SivallsUtahTerritory'] = contactData['Utah'];
-
-// Add aliases for Northeast USA (Alleghany company)
-contactData['Alleghany'] = contactData['Northeast USA'];
-
-// Add aliases for North Dakota (use clickable cls-10 version, NOT cls-3)
-contactData['North_Dakota-2'] = contactData['North Dakota'];
-contactData['NorthDakota2'] = contactData['North Dakota'];
-contactData['Primec_Controls'] = contactData['North Dakota']; // Parent group
-
-// Add aliases for Montana
-contactData['Primec_Controls_Montana'] = contactData['Montana'];
-
-// Add aliases for California (Pneumatic Controls - note SVG has typo "Pnuematic")
-contactData['Pnuematic_Controls_California'] = contactData['California'];
-contactData['PneumaticControls'] = contactData['California'];
-
-// Add aliases for Colorado and Wyoming (Western Sky)
-contactData['Western_Sky'] = contactData['Colorado'];
-contactData['WesternSky'] = contactData['Colorado'];
-contactData['Western_Sky_Wyoming'] = contactData['Wyoming'];
-
-// Add aliases for Quality Control (Southern USA)
-contactData['Quality_Control'] = contactData['Southern USA'];
-contactData['QualityControl'] = contactData['Southern USA'];
-
-// Add aliases for Bob Davis regions
-contactData['Bob_Davis-North_Texas'] = contactData['North Texas'];
-contactData['BobDavisNorthTexas'] = contactData['North Texas'];
-contactData['Bob_Davis-East_Texas'] = contactData['East Texas'];
-contactData['BobDavisEastTexas'] = contactData['East Texas'];
-contactData['Bob_Davis-Shreveport'] = contactData['Shreveport'];
-contactData['BobDavisShreveport'] = contactData['Shreveport'];
-
-// Add aliases for Spindletop Energy Products regions
-contactData['Spindletop_Energy_Products-Oklahoma'] = contactData['Oklahoma'];
-contactData['SpindletopEnergyProductsOklahoma'] = contactData['Oklahoma'];
-contactData['Spindletop_Energy_Products-Houston'] = contactData['Houston'];
-contactData['SpindletopEnergyProductsHouston'] = contactData['Houston'];
-contactData['Spindletop_Energy_Products_New_Iberia'] = contactData['New Iberia'];
-contactData['SpindletopEnergyProductsNewIberia'] = contactData['New Iberia'];
-
-// Add aliases for Strategic Energy Products regions
-contactData['Strategic_Energy_Products-West_Texas_NM'] = contactData['West Texas'];
-contactData['StrategicEnergyProductsWestTexasNM'] = contactData['West Texas'];
-contactData['Strategic_Energy_Products_South_Texas'] = contactData['South Texas'];
-contactData['StrategicEnergyProductsSouthTexas'] = contactData['South Texas'];
-
-    // Add aliases for Mexico region (northern area near Central America/Caribbean)
-    contactData['Mexico'] = contactData['Mexico'];
+// Load contact data from JSON file
+async function loadContactData() {
+  try {
+    const response = await fetch('data/contacts.json');
+    if (!response.ok) throw new Error('Failed to load contacts.json');
+    contactData = await response.json();
     
-// Add aliases for Canada (Excite Automation)
-contactData['Canada-Excite_Automation_and_Controls'] = contactData['Canada'];
-contactData['CanadaExciteAutomationandControls'] = contactData['Canada'];
-contactData['Excite_Automation_and_Controls'] = contactData['Canada'];
+    // Add aliases after loading data
+    setupAliases();
+  } catch (error) {
+    console.error('Error loading contact data:', error);
+  }
+}
+
+// Setup aliases for common naming variations
+function setupAliases() {
+  // Global Engine Controls aliases (Mexico and South America)
+  contactData['Mexico'] = contactData['Global Engine Controls'];
+  contactData['Brazil'] = contactData['Global Engine Controls'];
+  contactData['Bolivia'] = contactData['Global Engine Controls'];
+  contactData['SouthAmerica'] = contactData['Global Engine Controls'];
+  contactData['LatinAmerica'] = contactData['Global Engine Controls'];
+  contactData['Latin America and Caribbean'] = contactData['Global Engine Controls'];
+  contactData['Caribbean'] = contactData['Global Engine Controls'];
+  contactData['Argentina'] = contactData['Global Engine Controls'];
+  contactData['Peru'] = contactData['Global Engine Controls'];
+  contactData['Chile'] = contactData['Global Engine Controls'];
+  contactData['Venezuela'] = contactData['Global Engine Controls'];
+  contactData['Colombia'] = contactData['Global Engine Controls'];
+  contactData['Ecuador'] = contactData['Global Engine Controls'];
+
+  // Add aliases for Wyoming regions
+  contactData['Wyoming_Service_and_Supply_Territory'] = contactData['Western Wyoming'];
+  contactData['Wyoming_Serive_Supply'] = contactData['Western Wyoming'];
+  contactData['WyomingServiceandSupplyTerritory'] = contactData['Western Wyoming'];
+  contactData['Pnuematic_Controls'] = contactData['Western Wyoming'];
+
+  // Add aliases for Utah region (Sivalls company)
+  contactData['Sivalls'] = contactData['Utah'];
+  contactData['Sivalls_Utah_Territory'] = contactData['Utah'];
+  contactData['SivallsUtahTerritory'] = contactData['Utah'];
+
+  // Add aliases for Northeast USA (Alleghany company)
+  contactData['Alleghany'] = contactData['Northeast USA'];
+
+  // Add aliases for North Dakota
+  contactData['North_Dakota-2'] = contactData['North Dakota'];
+  contactData['NorthDakota2'] = contactData['North Dakota'];
+  contactData['Primec_Controls'] = contactData['North Dakota'];
+
+  // Add aliases for Montana
+  contactData['Primec_Controls_Montana'] = contactData['Montana'];
+
+  // Add aliases for California (Pneumatic Controls)
+  contactData['Pnuematic_Controls_California'] = contactData['California'];
+  contactData['PneumaticControls'] = contactData['California'];
+
+  // Add aliases for Colorado and Wyoming (Western Sky)
+  contactData['Western_Sky'] = contactData['Colorado'];
+  contactData['WesternSky'] = contactData['Colorado'];
+  contactData['Western_Sky_Wyoming'] = contactData['Wyoming'];
+
+  // Add aliases for Quality Control (Southern USA)
+  contactData['Quality_Control'] = contactData['Southern USA'];
+  contactData['QualityControl'] = contactData['Southern USA'];
+
+  // Add aliases for Bob Davis regions
+  contactData['Bob_Davis-North_Texas'] = contactData['North Texas'];
+  contactData['BobDavisNorthTexas'] = contactData['North Texas'];
+  contactData['Bob_Davis-East_Texas'] = contactData['East Texas'];
+  contactData['BobDavisEastTexas'] = contactData['East Texas'];
+  contactData['Bob_Davis-Shreveport'] = contactData['Shreveport'];
+  contactData['BobDavisShreveport'] = contactData['Shreveport'];
+
+  // Add aliases for Spindletop Energy Products regions
+  contactData['Spindletop_Energy_Products-Oklahoma'] = contactData['Oklahoma'];
+  contactData['SpindletopEnergyProductsOklahoma'] = contactData['Oklahoma'];
+  contactData['Spindletop_Energy_Products-Houston'] = contactData['Houston'];
+  contactData['SpindletopEnergyProductsHouston'] = contactData['Houston'];
+  contactData['Spindletop_Energy_Products_New_Iberia'] = contactData['New Iberia'];
+  contactData['SpindletopEnergyProductsNewIberia'] = contactData['New Iberia'];
+
+  // Add aliases for Strategic Energy Products regions
+  contactData['Strategic_Energy_Products-West_Texas_NM'] = contactData['West Texas'];
+  contactData['StrategicEnergyProductsWestTexasNM'] = contactData['West Texas'];
+  contactData['Strategic_Energy_Products_South_Texas'] = contactData['South Texas'];
+  contactData['StrategicEnergyProductsSouthTexas'] = contactData['South Texas'];
+
+  // Add aliases for Canada (Excite Automation)
+  contactData['Canada-Excite_Automation_and_Controls'] = contactData['Canada'];
+  contactData['CanadaExciteAutomationandControls'] = contactData['Canada'];
+  contactData['Excite_Automation_and_Controls'] = contactData['Canada'];
+}
 
 function parseColorString(str) {
   if (!str) return null;
@@ -486,7 +276,11 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-(function init() {
+// Initialize the application
+async function initApp() {
+  // Load contact data first
+  await loadContactData();
+  
   const container = document.getElementById('map-container');
   fetch('img/maps.svg')
     .then(r => {
@@ -580,4 +374,7 @@ function closeModal() {
       closeModal();
     }
   });
-})();
+}
+
+// Start the application
+initApp();
