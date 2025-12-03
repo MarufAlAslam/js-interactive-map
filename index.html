@@ -4,9 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
+  <title>Americas Contact Map</title>
 </head>
 <body>
   <div id="map-container"></div>
+  
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <h2 id="modal-title" class="modal-title"></h2>
+      <img id="modal-logo" class="modal-logo" src="" alt="Company Logo">
+      <div id="modal-contacts" class="modal-contacts"></div>
+    </div>
+  </div>
+
   <script src="js/app.js"></script>
 </body>
 </html>
