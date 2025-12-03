@@ -2,7 +2,7 @@
 const contactData = {
   'Canada': {
     company: 'Excite Automation & Controls',
-    logo: 'img/logos/excite.png',
+    logo: 'img/logos/ExciteAutomationandControlsLogo.png',
     contacts: [{
       area: 'Canada',
       phone: '403-800-7015',
@@ -12,7 +12,7 @@ const contactData = {
   },
   'North Dakota': {
     company: 'Primec Controls',
-    logo: 'img/logos/primec.png',
+    logo: 'img/logos/PrimeCControlsLogo.png',
     contacts: [{
       area: 'North Dakota and Eastern Montana',
       phone: '403-800-7015',
@@ -22,7 +22,7 @@ const contactData = {
   },
   'Montana': {
     company: 'Primec Controls',
-    logo: 'img/logos/primec.png',
+    logo: 'img/logos/PrimeCControlsLogo.png',
     contacts: [{
       area: 'North Dakota and Eastern Montana',
       phone: '403-800-7015',
@@ -32,7 +32,7 @@ const contactData = {
   },
   'Western Wyoming': {
     company: 'Wyoming Service & Supply',
-    logo: 'img/logos/wyss.png',
+    logo: 'img/logos/WyomingServiceandSupplyLogo.png',
     contacts: [{
       area: 'Western Wyoming',
       phone: '307-382-2717',
@@ -42,7 +42,7 @@ const contactData = {
   },
   'Northeast USA': {
     company: 'Alleghany',
-    logo: 'img/logos/alleghany.png',
+    logo: 'img/logos/AlleghanyProductsLogo.png',
     contacts: [{
       area: 'Kentucky, Ohio, West Virginia, Pennsylvania, Maryland, Delaware, New Jersey, New York, Connecticut, Rhode Island, Massachusetts, Vermont, New Hampshire, and Maine',
       phone: '412-385-1080',
@@ -52,7 +52,7 @@ const contactData = {
   },
   'California': {
     company: 'Pneumatic Controls',
-    logo: 'img/logos/pneumatic.png',
+    logo: 'img/logos/PneumaticControlLogo.png',
     contacts: [{
       area: 'California',
       phone: '661-325-1200',
@@ -62,7 +62,7 @@ const contactData = {
   },
   'Utah': {
     company: 'Sivalls',
-    logo: 'img/logos/sivalls.png',
+    logo: 'img/logos/SivallsLogo.png',
     contacts: [{
       area: 'Utah',
       phone: '435-789-9696',
@@ -72,7 +72,7 @@ const contactData = {
   },
   'Colorado': {
     company: 'Western Sky',
-    logo: 'img/logos/westernsky.png',
+    logo: 'img/logos/WesternSkyLogo.png',
     contacts: [{
       area: 'Northern Colorado and Southeast Wyoming',
       phone: '970-203-4279',
@@ -82,7 +82,7 @@ const contactData = {
   },
   'Wyoming': {
     company: 'Western Sky',
-    logo: 'img/logos/westernsky.png',
+    logo: 'img/logos/WesternSkyLogo.png',
     contacts: [{
       area: 'Northern Colorado and Southeast Wyoming',
       phone: '970-203-4279',
@@ -92,7 +92,7 @@ const contactData = {
   },
   'Oklahoma': {
     company: 'Spindletop Energy Products',
-    logo: 'img/logos/spindletop.png',
+    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
     contacts: [{
       area: 'Oklahoma and Texas Panhandle',
       phone: '405-504-9006',
@@ -102,7 +102,7 @@ const contactData = {
   },
   'Texas Panhandle': {
     company: 'Spindletop Energy Products',
-    logo: 'img/logos/spindletop.png',
+    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
     contacts: [{
       area: 'Oklahoma and Texas Panhandle',
       phone: '405-504-9006',
@@ -112,7 +112,7 @@ const contactData = {
   },
   'North Texas': {
     company: 'Bob Davis Sales',
-    logo: 'img/logos/bobdavis.png',
+    logo: 'img/logos/BobDavisSalesLogo.png',
     contacts: [{
       area: 'North Texas',
       phone: '817-641-0500',
@@ -122,7 +122,7 @@ const contactData = {
   },
   'East Texas': {
     company: 'Bob Davis Sales',
-    logo: 'img/logos/bobdavis.png',
+    logo: 'img/logos/BobDavisSalesLogo.png',
     contacts: [{
       area: 'East Texas',
       phone: '903-984-3093',
@@ -132,7 +132,7 @@ const contactData = {
   },
   'Shreveport': {
     company: 'Bob Davis Sales',
-    logo: 'img/logos/bobdavis.png',
+    logo: 'img/logos/BobDavisSalesLogo.png',
     contacts: [{
       area: 'Northern Louisiana',
       phone: '318-222-7121',
@@ -142,7 +142,7 @@ const contactData = {
   },
   'New Iberia': {
     company: 'Spindletop Energy Products',
-    logo: 'img/logos/spindletop.png',
+    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
     contacts: [{
       area: 'Southwest Louisiana',
       phone: '337-443-0630',
@@ -152,7 +152,7 @@ const contactData = {
   },
   'Southern USA': {
     company: 'Quality Control Products',
-    logo: 'img/logos/qualitycontrol.png',
+    logo: 'img/logos/QualityControlProducts.png',
     contacts: [{
       area: 'Southeast Louisiana, Southern Mississippi, and Southwest Alabama',
       phone: '504-392-9464',
@@ -162,7 +162,7 @@ const contactData = {
   },
   'Houston': {
     company: 'Spindletop Energy Products',
-    logo: 'img/logos/spindletop.png',
+    logo: 'img/logos/SpindletopEnergyProductsLogo.jpg',
     contacts: [{
       area: 'Southeast Texas and Gulf Coast',
       phone: '832-856-4500',
@@ -172,7 +172,7 @@ const contactData = {
   },
   'West Texas': {
     company: 'Strategic Energy Products',
-    logo: 'img/logos/strategic.png',
+    logo: 'img/logos/StrategicEnergyProducts.png',
     contacts: [{
       area: 'West Texas and Southeast New Mexico',
       phone: '432-561-5654',
@@ -182,7 +182,7 @@ const contactData = {
   },
   'South Texas': {
     company: 'Strategic Energy Products',
-    logo: 'img/logos/strategic.png',
+    logo: 'img/logos/StrategicEnergyProducts.png',
     contacts: [{
       area: 'South Texas',
       phone: '832-482-8207',
@@ -192,7 +192,7 @@ const contactData = {
   },
   'Mexico': {
     company: 'Global Engine Controls',
-    logo: 'img/logos/gec.png',
+    logo: 'img/logos/GlobalEngineContolsLogo.png',
     contacts: [
       {
         area: 'Latin America and Caribbean',
@@ -222,7 +222,7 @@ const contactData = {
   },
   'South America': {
     company: 'Global Engine Controls',
-    logo: 'img/logos/gec.png',
+    logo: 'img/logos/GlobalEngineContolsLogo.png',
     contacts: [
       {
         area: 'Latin America and Caribbean',
@@ -251,6 +251,20 @@ const contactData = {
     ]
   }
 };
+
+// Add aliases for common naming variations
+// Map alternative names to the canonical region names
+contactData['SouthAmerica'] = contactData['South America'];
+contactData['LatinAmerica'] = contactData['South America'];
+contactData['Caribbean'] = contactData['South America'];
+contactData['Argentina'] = contactData['South America'];
+contactData['Brazil'] = contactData['South America'];
+contactData['Bolivia'] = contactData['South America'];
+contactData['Peru'] = contactData['South America'];
+contactData['Chile'] = contactData['South America'];
+contactData['Venezuela'] = contactData['South America'];
+contactData['Colombia'] = contactData['South America'];
+contactData['Ecuador'] = contactData['South America'];
 
 function parseColorString(str) {
   if (!str) return null;
@@ -298,28 +312,46 @@ function getEffectiveColors(el) {
 }
 
 function findRegionName(element) {
-  // Check element id
+  // Normalize a string for comparison (lowercase, remove spaces, punctuation, etc.)
+  const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  
+  // Check element id first
   if (element.id) {
+    const normalizedId = normalize(element.id);
+    console.log('Checking element ID:', element.id, '-> normalized:', normalizedId);
+    
     for (const key in contactData) {
-      if (element.id.toLowerCase().includes(key.toLowerCase().replace(/\s+/g, ''))) {
+      const normalizedKey = normalize(key);
+      // Check if ID contains the key or key contains the ID (more flexible matching)
+      if (normalizedId.includes(normalizedKey) || normalizedKey.includes(normalizedId)) {
+        console.log('✓ Matched:', element.id, '->', key);
         return key;
       }
     }
   }
   
-  // Check parent groups
+  // Check parent groups up the tree
   let parent = element.parentElement;
-  while (parent && parent.tagName !== 'svg') {
+  let depth = 0;
+  while (parent && parent.tagName !== 'svg' && depth < 10) {
     if (parent.id) {
+      const normalizedParentId = normalize(parent.id);
+      console.log('Checking parent ID:', parent.id, '-> normalized:', normalizedParentId, '(depth:', depth + ')');
+      
       for (const key in contactData) {
-        if (parent.id.toLowerCase().includes(key.toLowerCase().replace(/\s+/g, ''))) {
+        const normalizedKey = normalize(key);
+        // Check if parent ID contains the key or key contains the parent ID
+        if (normalizedParentId.includes(normalizedKey) || normalizedKey.includes(normalizedParentId)) {
+          console.log('✓ Matched parent:', parent.id, '->', key);
           return key;
         }
       }
     }
     parent = parent.parentElement;
+    depth++;
   }
   
+  console.warn('✗ No match found for element:', element.id || 'no-id', 'Check console logs above for attempted matches');
   return null;
 }
 

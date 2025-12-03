@@ -159,8 +159,8 @@ svg {
 }
 
 .contact-label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -168,7 +168,8 @@ svg {
 }
 
 .contact-value {
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 400;
   color: #333;
   line-height: 1.5;
 }
