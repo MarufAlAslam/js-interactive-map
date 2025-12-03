@@ -5,6 +5,9 @@ body {
 
 #map-container {
   width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 20px;
   height: 100vh;
   overflow: visible;
 }
