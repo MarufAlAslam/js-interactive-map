@@ -22,6 +22,43 @@ body {
   padding: 20px;
   height: 100vh;
   overflow: visible;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#map-container.loading {
+  min-height: 500px;
+}
+
+.map-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.map-loader-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+.map-loader-text {
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 svg {
@@ -133,6 +170,40 @@ svg {
   max-height: 80px;
   margin: 0 auto 30px auto;
   object-fit: contain;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-logo.loading {
+  opacity: 0;
+}
+
+.logo-container {
+  position: relative;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-loader {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+
+.logo-loader.active {
+  display: block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .modal-contacts {
@@ -232,7 +303,12 @@ svg {
   </style>
 </head>
 <body>
-  <div id="map-container"></div>
+  <div id="map-container" class="loading">
+    <div class="map-loader">
+      <div class="map-loader-spinner"></div>
+      <div class="map-loader-text">Loading map...</div>
+    </div>
+  </div>
   
   <!-- Contact Modal -->
   <div id="contact-modal" class="modal">
@@ -244,7 +320,10 @@ svg {
         </svg>
       </button>
       <h2 id="modal-title" class="modal-title"></h2>
-      <img id="modal-logo" class="modal-logo" src="" alt="Company Logo">
+      <div class="logo-container">
+        <div id="logo-loader" class="logo-loader"></div>
+        <img id="modal-logo" class="modal-logo" src="" alt="Company Logo">
+      </div>
       <div id="modal-contacts" class="modal-contacts"></div>
     </div>
   </div>
@@ -384,10 +463,30 @@ function showModal(regionName) {
   const modal = document.getElementById('contact-modal');
   const modalTitle = document.getElementById('modal-title');
   const modalLogo = document.getElementById('modal-logo');
+  const logoLoader = document.getElementById('logo-loader');
   const modalContacts = document.getElementById('modal-contacts');
+  
   modalTitle.textContent = data.company;
-  modalLogo.src = data.logo;
-  modalLogo.alt = data.company + ' Logo';
+  
+  // Show loader and hide image
+  modalLogo.classList.add('loading');
+  logoLoader.classList.add('active');
+  
+  // Create a new image to preload
+  const img = new Image();
+  img.onload = function() {
+    modalLogo.src = data.logo;
+    modalLogo.alt = data.company + ' Logo';
+    logoLoader.classList.remove('active');
+    modalLogo.classList.remove('loading');
+  };
+  img.onerror = function() {
+    modalLogo.src = data.logo;
+    modalLogo.alt = data.company + ' Logo';
+    logoLoader.classList.remove('active');
+    modalLogo.classList.remove('loading');
+  };
+  img.src = data.logo;
   modalContacts.innerHTML = '';
   data.contacts.forEach(contact => {
     const contactDiv = document.createElement('div');
@@ -422,12 +521,17 @@ function initApp() {
   setupAliases();
   const container = document.getElementById('map-container');
   
-  fetch('img/maps.svg')
+  fetch('https://irp.cdn-website.com/728efa47/dms3rep/multi/maps.svg')
     .then(r => {
       if (!r.ok) throw new Error('SVG fetch failed: ' + r.status);
       return r.text();
     })
     .then(svgText => {
+      // Remove loader
+      const loader = container.querySelector('.map-loader');
+      if (loader) loader.remove();
+      container.classList.remove('loading');
+      
       container.innerHTML = svgText;
       const svg = container.querySelector('svg');
       if (!svg) throw new Error('No <svg> found in the file');
@@ -482,7 +586,7 @@ function initApp() {
     .catch(err => {
       console.warn('Could not load SVG:', err);
       const img = document.createElement('img');
-      img.src = 'img/maps.svg';
+      img.src = 'https://irp.cdn-website.com/728efa47/dms3rep/multi/maps.svg';
       img.alt = 'Map';
       img.style.width = '100%';
       container.appendChild(img);
