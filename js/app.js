@@ -149,13 +149,32 @@ function findRegionName(element) {
     const normalizedId = normalize(element.id);
     console.log('Checking element ID:', element.id, '-> normalized:', normalizedId);
     
+    // First, check for exact matches (including aliases)
+    for (const key in contactData) {
+      const normalizedKey = normalize(key);
+      if (normalizedId === normalizedKey) {
+        console.log('✓ Exact match:', element.id, '->', key);
+        return key;
+      }
+    }
+    
+    // Then check for partial matches (but prefer longer matches)
+    let bestMatch = null;
+    let bestMatchLength = 0;
     for (const key in contactData) {
       const normalizedKey = normalize(key);
       // Check if ID contains the key or key contains the ID (more flexible matching)
       if (normalizedId.includes(normalizedKey) || normalizedKey.includes(normalizedId)) {
-        console.log('✓ Matched:', element.id, '->', key);
-        return key;
+        // Prefer longer matches to avoid "Wyoming" matching before "Western Wyoming"
+        if (normalizedKey.length > bestMatchLength) {
+          bestMatch = key;
+          bestMatchLength = normalizedKey.length;
+        }
       }
+    }
+    if (bestMatch) {
+      console.log('✓ Matched:', element.id, '->', bestMatch);
+      return bestMatch;
     }
   }
   
@@ -167,13 +186,31 @@ function findRegionName(element) {
       const normalizedParentId = normalize(parent.id);
       console.log('Checking parent ID:', parent.id, '-> normalized:', normalizedParentId, '(depth:', depth + ')');
       
+      // First, check for exact matches
+      for (const key in contactData) {
+        const normalizedKey = normalize(key);
+        if (normalizedParentId === normalizedKey) {
+          console.log('✓ Exact match parent:', parent.id, '->', key);
+          return key;
+        }
+      }
+      
+      // Then check for partial matches (prefer longer matches)
+      let bestMatch = null;
+      let bestMatchLength = 0;
       for (const key in contactData) {
         const normalizedKey = normalize(key);
         // Check if parent ID contains the key or key contains the parent ID
         if (normalizedParentId.includes(normalizedKey) || normalizedKey.includes(normalizedParentId)) {
-          console.log('✓ Matched parent:', parent.id, '->', key);
-          return key;
+          if (normalizedKey.length > bestMatchLength) {
+            bestMatch = key;
+            bestMatchLength = normalizedKey.length;
+          }
         }
+      }
+      if (bestMatch) {
+        console.log('✓ Matched parent:', parent.id, '->', bestMatch);
+        return bestMatch;
       }
     }
     parent = parent.parentElement;

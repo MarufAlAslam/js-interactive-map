@@ -445,11 +445,30 @@
       const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
       if (element.id) {
         const normalizedId = normalize(element.id);
+        
+        // First, check for exact matches (including aliases)
+        for (const key in contactData) {
+          const normalizedKey = normalize(key);
+          if (normalizedId === normalizedKey) {
+            return key;
+          }
+        }
+        
+        // Then check for partial matches (but prefer longer matches)
+        let bestMatch = null;
+        let bestMatchLength = 0;
         for (const key in contactData) {
           const normalizedKey = normalize(key);
           if (normalizedId.includes(normalizedKey) || normalizedKey.includes(normalizedId)) {
-            return key;
+            // Prefer longer matches to avoid "Wyoming" matching before "Western Wyoming"
+            if (normalizedKey.length > bestMatchLength) {
+              bestMatch = key;
+              bestMatchLength = normalizedKey.length;
+            }
           }
+        }
+        if (bestMatch) {
+          return bestMatch;
         }
       }
       let parent = element.parentElement;
@@ -457,11 +476,29 @@
       while (parent && parent.tagName !== 'svg' && depth < 10) {
         if (parent.id) {
           const normalizedParentId = normalize(parent.id);
+          
+          // First, check for exact matches
+          for (const key in contactData) {
+            const normalizedKey = normalize(key);
+            if (normalizedParentId === normalizedKey) {
+              return key;
+            }
+          }
+          
+          // Then check for partial matches (prefer longer matches)
+          let bestMatch = null;
+          let bestMatchLength = 0;
           for (const key in contactData) {
             const normalizedKey = normalize(key);
             if (normalizedParentId.includes(normalizedKey) || normalizedKey.includes(normalizedParentId)) {
-              return key;
+              if (normalizedKey.length > bestMatchLength) {
+                bestMatch = key;
+                bestMatchLength = normalizedKey.length;
+              }
             }
+          }
+          if (bestMatch) {
+            return bestMatch;
           }
         }
         parent = parent.parentElement;
